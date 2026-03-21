@@ -1,0 +1,35 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+  <defs>
+    <clipPath id="bounds">
+      <rect width="500" height="500" rx="44"/>
+    </clipPath>
+  </defs>
+  <rect width="500" height="500" rx="44" fill="#0d0f14"/>
+  <g clip-path="url(#bounds)">
+    <path d="M 65,500  A 65,65   0 0,0 0,435" fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.20"/>
+    <path d="M 100,500 A 100,100 0 0,0 0,400" fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.22"/>
+    <path d="M 128,500 A 128,128 0 0,0 0,372" fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.22"/>
+    <path d="M 165,500 A 165,165 0 0,0 0,335" fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.24"/>
+    <path d="M 258,500 A 258,258 0 0,0 0,242" fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.26"/>
+    <path d="M 355,500 A 355,355 0 0,0 0,145" fill="none" stroke="#a78bfa" stroke-width="3.5" opacity="0.88"/>
+    <path d="M 432,500 A 432,432 0 0,0 0,68"  fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.20"/>
+    <path d="M 495,500 A 495,495 0 0,0 0,5"   fill="none" stroke="#a78bfa" stroke-width="1.8" opacity="0.15"/>
+    <circle cx="0" cy="500" r="110" fill="#ffdd66" opacity="0.03"/>
+    <circle cx="0" cy="500" r="80"  fill="#ffdd66" opacity="0.05"/>
+    <circle cx="0" cy="500" r="60"  fill="#ffdd66" opacity="0.08"/>
+    <circle cx="0" cy="500" r="42"  fill="#e8960a"/>
+    <circle cx="0" cy="500" r="30"  fill="#f5b820"/>
+    <circle cx="0" cy="500" r="18"  fill="#ffe580"/>
+    <circle cx="12" cy="488" r="9"  fill="#fffad0" opacity="0.55"/>
+    <circle cx="251" cy="249" r="22" fill="#a78bfa" opacity="0.10"/>
+    <circle cx="251" cy="249" r="14" fill="#a78bfa" opacity="0.14"/>
+    <g transform="rotate(-28, 251, 249)">
+      <path d="M 231,249 A 20,6 0 0,1 271,249" fill="none" stroke="#8b6fe8" stroke-width="1.6" opacity="0.42"/>
+    </g>
+    <circle cx="251" cy="249" r="10" fill="#9d7ef5"/>
+    <circle cx="247" cy="245" r="4"  fill="#ffffff" opacity="0.22"/>
+    <g transform="rotate(-28, 251, 249)">
+      <path d="M 231,249 A 20,6 0 0,0 271,249" fill="none" stroke="#c4aff8" stroke-width="2.2" opacity="0.92"/>
+    </g>
+  </g>
+</svg>

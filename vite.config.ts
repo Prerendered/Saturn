@@ -30,15 +30,15 @@ const manifest = defineManifest({
   action: {
     default_popup: 'popup/index.html',
     default_icon: {
-      16: 'icons/icon16.png',
-      48: 'icons/icon48.png',
-      128: 'icons/icon128.png',
+      16: 'icons/png/saturn-planet-16.png',
+      48: 'icons/png/saturn-planet-48.png',
+      128: 'icons/png/saturn-planet-128.png',
     },
   },
   icons: {
-    16: 'icons/icon16.png',
-    48: 'icons/icon48.png',
-    128: 'icons/icon128.png',
+    16: 'icons/png/saturn-planet-16.png',
+    48: 'icons/png/saturn-planet-48.png',
+    128: 'icons/png/saturn-planet-128.png',
   },
 })
 
