@@ -1,0 +1,51 @@
+/*
+ * Saturn design tokens as CSS custom properties.
+ * Loaded once at the app root — all popup components consume these via var().
+ *
+ * Source of truth: src/utils/tokens.ts
+ * Never hardcode hex values in components — always use var(--color-*).
+ * Never load fonts from an external CDN — Inter and JetBrains Mono are
+ * bundled by Vite to satisfy the extension's CSP.
+ */
+
+:root {
+  /* ── Backgrounds ──────────────────────────────────────────────────────── */
+  --color-bg:             #0d0f14;
+  --color-surface:        #13161e;
+  --color-surface-raised: #1a1d27;
+
+  /* ── Accent — purple ──────────────────────────────────────────────────── */
+  --color-accent:         #a78bfa;
+  --color-accent-dim:     rgba(167, 139, 250, 0.10);
+  --color-accent-border:  rgba(167, 139, 250, 0.28);
+  --color-accent-glow:    rgba(167, 139, 250, 0.45);
+
+  /* ── Text ─────────────────────────────────────────────────────────────── */
+  --color-text-primary:   #e2e0f0;
+  --color-text-secondary: #8b88a8;
+  --color-text-muted:     #4a4870;
+
+  /* ── Borders ──────────────────────────────────────────────────────────── */
+  --color-border:         #1a1d2a;
+  --color-border-hover:   #26293a;
+
+  /* ── Semantic ─────────────────────────────────────────────────────────── */
+  --color-success: #4ade80;
+  --color-danger:  #f87171;
+
+  /* ── Typography ───────────────────────────────────────────────────────── */
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+
+  --font-size-brand:   14px; /* Popup header / logo                          */
+  --font-size-label:   12px; /* Toggle labels, status label                  */
+  --font-size-meta:    11px; /* Section headers, status pill quality string  */
+  --font-size-readout: 10px; /* Resolution readout (mono), muted metadata    */
+
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+  --popup-width: 320px; /* Hard Chrome popup constraint — never change       */
+}
