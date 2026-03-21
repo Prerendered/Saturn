@@ -26,6 +26,12 @@ const manifest = defineManifest({
       js: ['content/index.ts'],
       run_at: 'document_idle',
     },
+    {
+      matches: ['*://*.youtube.com/*'],
+      js: ['content/player-world.ts'],
+      run_at: 'document_idle',
+      world: 'MAIN' as const,
+    },
   ],
   action: {
     default_popup: 'popup/index.html',
@@ -69,12 +75,23 @@ function renameExtensionChunks(): Plugin {
         await renameAndPatch(bg, 'background.js')
       }
 
-      const contentFile = (
-        (mf['content_scripts'] as Array<Record<string, unknown>> | undefined)
-          ?.[0]?.['js'] as string[] | undefined
-      )?.[0]
-      if (typeof contentFile === 'string' && contentFile !== 'content.js') {
-        await renameAndPatch(contentFile, 'content.js')
+      // Rename each content script's first JS file to a clean predictable name.
+      // The isolated-world script moves to root (content.js) — its loader uses
+      // chrome.runtime.getURL() so the new path is irrelevant.
+      // The MAIN-world script stays in assets/ (assets/player-world.js) — its
+      // loader uses a relative import ("./player-world.ts.js") so the directory
+      // must not change or the import breaks.
+      const cleanNames = ['content.js', 'assets/player-world.js']
+      const contentScripts = mf['content_scripts'] as Array<Record<string, unknown>> | undefined
+      if (contentScripts) {
+        for (let i = 0; i < contentScripts.length; i++) {
+          const jsFiles = contentScripts[i]?.['js'] as string[] | undefined
+          const firstFile = jsFiles?.[0]
+          const cleanName = cleanNames[i]
+          if (typeof firstFile === 'string' && typeof cleanName === 'string' && firstFile !== cleanName) {
+            await renameAndPatch(firstFile, cleanName)
+          }
+        }
       }
 
       await writeFile(manifestPath, manifestText)

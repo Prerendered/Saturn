@@ -60,7 +60,7 @@ describe('getSettings', () => {
 
 describe('saveSettings', () => {
   it('persists settings that are then returned by getSettings', async () => {
-    await saveSettings({ enabled: false, showBadge: false })
+    await saveSettings({ enabled: false, showBadge: false, manualQuality: null })
     const settings = await getSettings()
     expect(settings.enabled).toBe(false)
     expect(settings.showBadge).toBe(false)

@@ -8,6 +8,11 @@ export interface ExtensionSettings {
   enabled: boolean
   /** Whether to show the active quality string as a badge on the toolbar icon. */
   showBadge: boolean
+  /**
+   * Manual quality override. null means auto — resolve from screen height.
+   * When set, this quality is applied directly without screen detection.
+   */
+  manualQuality: QualityLevel | null
 }
 
 // ─── Messaging ─────────────────────────────────────────────────────────────

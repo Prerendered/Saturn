@@ -17,8 +17,12 @@ interface UseExtensionSettingsResult {
 async function relayToActiveTab(message: SaturnMessage): Promise<void> {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
   if (tab?.id === undefined) return
+  // Only skip relay when we can confirm the tab is not a YouTube watch page.
+  // If url is undefined (no tabs permission), fall through and let sendMessage
+  // fail gracefully via .catch().
+  if (tab.url !== undefined && !tab.url.includes('youtube.com/watch')) return
   // sendMessage throws if no content script is listening — safe to ignore.
-  await chrome.tabs.sendMessage(tab.id, message).catch(() => undefined)
+  await chrome.tabs.sendMessage(tab.id, message).catch(() => { /* tab not ready */ })
 }
 
 export function useExtensionSettings(): UseExtensionSettingsResult {

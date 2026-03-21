@@ -105,6 +105,7 @@ refactor(utils): extract resolution detection to separate module
 - **No commits directly to `main`** — always branch + PR
 - **One logical change per commit** — no "did a bunch of stuff" commits
 - **PRs must pass TypeScript check** before merge: `bun run typecheck`
+- **Remove any extra comments/logs** after fixed; before merge
 - No `WIP` commits on `main`
 - Branch names always use one of: `feat/`, `fix/`, `chore/`, `refactor/`, `docs/`
 

@@ -5,10 +5,10 @@
 // ─── Player ────────────────────────────────────────────────────────────────
 
 /** How many times to retry finding the YouTube player before giving up. */
-export const PLAYER_RETRY_COUNT = 3 as const
+export const PLAYER_RETRY_COUNT = 5 as const
 
-/** Base delay (ms) between player lookup retries. Multiplied by attempt index for exponential backoff. */
-export const PLAYER_RETRY_DELAY_MS = 300 as const
+/** Base delay (ms) between player lookup retries. Multiplied by attempt index for linear backoff. */
+export const PLAYER_RETRY_DELAY_MS = 500 as const
 
 // ─── Quality ───────────────────────────────────────────────────────────────
 
@@ -60,6 +60,15 @@ export const POPUP_PADDING_VERTICAL_PX = 12 as const
 
 /** Gap (px) between logical section groups in the popup layout. */
 export const POPUP_SECTION_GAP_PX = 16 as const
+
+// ─── Cross-world Messaging ─────────────────────────────────────────────────
+
+/**
+ * Custom window event name used to pass quality instructions from the isolated
+ * world content script to the MAIN world player script.
+ * Both scripts are bundled separately so they share this constant via import.
+ */
+export const SATURN_APPLY_QUALITY_EVENT = 'saturn:apply-quality' as const
 
 // ─── SPA Navigation ────────────────────────────────────────────────────────
 

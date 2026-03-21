@@ -4,6 +4,7 @@ import { STORAGE_KEY_SETTINGS } from './constants'
 const DEFAULTS: ExtensionSettings = {
   enabled: true,
   showBadge: true,
+  manualQuality: null,
 }
 
 /**

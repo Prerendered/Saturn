@@ -1,31 +1,31 @@
-import { SPA_NAV_DEBOUNCE_DELAY_MS } from '../utils/constants'
-
 /**
- * Watches #page-manager for YouTube SPA navigations and calls the provided
- * callback after each one, debounced to let the new player settle in the DOM.
+ * Listens for YouTube's internal `yt-navigate-finish` document event, which
+ * fires after each SPA navigation once the new page — including the player —
+ * has been rendered into the DOM.
  *
- * Uses MutationObserver — never popstate or history events, which YouTube
- * overrides internally and which fire before the player is ready.
+ * This is more reliable than MutationObserver on #page-manager, which fires
+ * as soon as the DOM node appears but before the player API is attached.
  *
- * @param onNavigate - Called after each SPA navigation once the debounce resolves.
- * @returns The active MutationObserver so the caller can disconnect it if needed.
+ * Falls back to a MutationObserver on #page-manager for YouTube layouts that
+ * do not dispatch the custom event.
+ *
+ * @param onNavigate - Called after each SPA navigation.
  */
-export function initSpaObserver(onNavigate: () => void): MutationObserver {
-  let debounceTimer: ReturnType<typeof setTimeout> | undefined
-
-  const observer = new MutationObserver(() => {
-    clearTimeout(debounceTimer)
-    debounceTimer = setTimeout(onNavigate, SPA_NAV_DEBOUNCE_DELAY_MS)
+export function initSpaObserver(onNavigate: () => void): void {
+  // Primary: YouTube's own post-navigation event. Fires after the player is ready.
+  document.addEventListener('yt-navigate-finish', () => {
+    onNavigate()
   })
 
+  // Fallback: watch #page-manager child swaps for layouts that skip the event.
   const pageManager = document.querySelector('#page-manager')
+  if (pageManager === null) return
 
-  if (pageManager === null) {
-    console.warn('[Saturn] #page-manager not found — SPA observer not started')
-    return observer
-  }
+  let debounceTimer: ReturnType<typeof setTimeout> | undefined
+  const observer = new MutationObserver(() => {
+    clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(onNavigate, 800)
+  })
 
   observer.observe(pageManager, { childList: true, subtree: false })
-
-  return observer
 }
