@@ -28,7 +28,7 @@ export function resolveTargetQuality(
     }
   }
 
-  // Screen is below all thresholds — return the lowest available quality.
-  const last = available[available.length - 1]
-  return last ?? null
+  // Screen is below all thresholds — return the highest available quality.
+  const first = available[0]
+  return first ?? null
 }
