@@ -77,3 +77,11 @@ export const SATURN_APPLY_QUALITY_EVENT = 'saturn:apply-quality' as const
  * YouTube needs time to inject the new player into the DOM after a route change.
  */
 export const SPA_NAV_DEBOUNCE_DELAY_MS = 500 as const
+
+// ─── Screen Change ─────────────────────────────────────────────────────────
+
+/**
+ * Debounce delay (ms) after a window resize before re-evaluating screen height.
+ * Prevents rapid re-application while the user is dragging the window.
+ */
+export const SCREEN_CHANGE_DEBOUNCE_MS = 500 as const
