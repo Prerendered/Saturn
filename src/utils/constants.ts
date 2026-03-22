@@ -61,6 +61,35 @@ export const POPUP_PADDING_VERTICAL_PX = 12 as const
 /** Gap (px) between logical section groups in the popup layout. */
 export const POPUP_SECTION_GAP_PX = 16 as const
 
+// ─── YouTube tab indicator ─────────────────────────────────────────────────
+
+/** YouTube brand red used for the tab-status badge in the popup. */
+export const YOUTUBE_BADGE_RED = '#ff0000' as const
+
+// ─── Badge ─────────────────────────────────────────────────────────────────
+
+/**
+ * Short label shown in the Chrome toolbar badge for each quality level.
+ * Chrome badge text is constrained to ~4 characters — keep values terse.
+ */
+export const BADGE_LABEL_MAP: Record<(typeof QUALITY_ORDER)[number], string> = {
+  hd2160: '2160',
+  hd1440: '1440',
+  hd1080: '1080',
+  hd720:  '720p',
+  large:  '480p',
+  medium: '360p',
+  small:  '240p',
+  tiny:   '144p',
+} as const
+
+/**
+ * Background colour of the toolbar badge.
+ * Matches COLORS.accent from tokens.ts — duplicated here so the background
+ * service worker does not need to import the full token file.
+ */
+export const BADGE_BG_COLOR = '#a78bfa' as const
+
 // ─── Cross-world Messaging ─────────────────────────────────────────────────
 
 /**

@@ -8,6 +8,15 @@
  * bundled by Vite to satisfy the extension's CSP.
  */
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+}
+
 :root {
   /* ── Backgrounds ──────────────────────────────────────────────────────── */
   --color-bg:             #0d0f14;

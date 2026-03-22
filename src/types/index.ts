@@ -17,14 +17,20 @@ export interface ExtensionSettings {
 
 // ─── Messaging ─────────────────────────────────────────────────────────────
 
-/** Typed message schema for popup → content script communication. */
-export interface SaturnMessage {
+/** Typed message schema for inter-script communication. */
+export type SaturnMessage =
   /**
    * APPLY_QUALITY — re-run the quality clamping pipeline on the active tab.
-   * PING         — health-check that the content script is alive.
+   * PING          — health-check that the content script is alive.
    */
-  type: 'APPLY_QUALITY' | 'PING'
-}
+  | { type: 'APPLY_QUALITY' | 'PING' }
+  /**
+   * SET_BADGE — update the toolbar badge for the sending tab.
+   * show: false clears the badge; show: true writes the quality label.
+   */
+  | { type: 'SET_BADGE'; quality: QualityLevel; show: boolean }
+  /** CLEAR_BADGE — remove the toolbar badge for the sending tab. */
+  | { type: 'CLEAR_BADGE' }
 
 // ─── YouTube Player ────────────────────────────────────────────────────────
 

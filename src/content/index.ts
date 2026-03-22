@@ -12,7 +12,8 @@ import type { SaturnMessage } from '../types'
 import { getSettings } from '../utils/storage'
 import { initSpaObserver } from './spa-observer'
 import { detectScreenHeight } from '../utils/resolution'
-import { SATURN_APPLY_QUALITY_EVENT, SCREEN_CHANGE_DEBOUNCE_MS } from '../utils/constants'
+import { resolveTargetQuality } from '../utils/quality-map'
+import { SATURN_APPLY_QUALITY_EVENT, SCREEN_CHANGE_DEBOUNCE_MS, QUALITY_ORDER } from '../utils/constants'
 
 function isContextValid(): boolean {
   try {
@@ -28,12 +29,13 @@ async function initPlayerController(): Promise<void> {
   const settings = await getSettings()
   // Apply if auto mode is on, OR if a manual quality is pinned.
   // Only bail when both are absent (extension is fully disabled).
-  if (!settings.enabled && settings.manualQuality === null) return
-
-  const payload = {
-    screenHeight: detectScreenHeight(),
-    manualQuality: settings.manualQuality,
+  if (!settings.enabled && settings.manualQuality === null) {
+    chrome.runtime.sendMessage({ type: 'CLEAR_BADGE' } satisfies SaturnMessage).catch(() => undefined)
+    return
   }
+
+  const screenHeight = detectScreenHeight()
+  const payload = { screenHeight, manualQuality: settings.manualQuality }
 
   // Store payload in a DOM attribute so the MAIN world script can pick it up
   // if it hasn't registered its listener yet (both scripts load asynchronously
@@ -42,6 +44,16 @@ async function initPlayerController(): Promise<void> {
 
   // Also dispatch the event for the case where MAIN world is already listening.
   window.dispatchEvent(new CustomEvent(SATURN_APPLY_QUALITY_EVENT, { detail: payload }))
+
+  // Notify the background to update the toolbar badge.
+  const targetQuality = settings.manualQuality ?? resolveTargetQuality(screenHeight, [...QUALITY_ORDER])
+  if (targetQuality !== null) {
+    chrome.runtime.sendMessage({
+      type: 'SET_BADGE',
+      quality: targetQuality,
+      show: settings.showBadge,
+    } satisfies SaturnMessage).catch(() => undefined)
+  }
 }
 
 // ── Initial load ──────────────────────────────────────────────────────────────

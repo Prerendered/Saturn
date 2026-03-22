@@ -8,26 +8,36 @@ interface Props {
 }
 
 export function StatusPill({ quality, active }: Props) {
-  if (!quality) return null
+  const isOff = quality === null
 
   return (
     <span
       style={{
         display: 'inline-flex',
         alignItems: 'center',
+        gap: '6px',
         padding: '2px 8px',
         borderRadius: '6px',
-        background: 'var(--color-accent-dim)',
-        border: '1px solid var(--color-accent-border)',
-        color: 'var(--color-accent)',
+        background: isOff ? 'var(--color-surface)' : 'var(--color-accent-dim)',
+        border: `1px solid ${isOff ? 'var(--color-border)' : 'var(--color-accent-border)'}`,
         fontFamily: 'JetBrains Mono, monospace',
-        fontSize: '11px',
+        fontSize: '12px',
         fontWeight: 500,
-        boxShadow: active ? '0 0 8px var(--color-accent-glow)' : 'none',
-        transition: 'box-shadow 200ms ease',
+        boxShadow: active && !isOff ? '0 0 8px var(--color-accent-glow)' : 'none',
+        transition: 'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease',
       }}
     >
-      {quality}
+      <span style={{
+        width: '6px',
+        height: '6px',
+        borderRadius: '50%',
+        background: isOff ? 'var(--color-text-muted)' : 'var(--color-accent)',
+        flexShrink: 0,
+        transition: 'background 200ms ease',
+      }} />
+      <span style={{ color: isOff ? 'var(--color-text-muted)' : 'var(--color-accent)' }}>
+        {isOff ? 'off' : quality}
+      </span>
     </span>
   )
 }

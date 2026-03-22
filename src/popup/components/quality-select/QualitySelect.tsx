@@ -1,18 +1,19 @@
 import type { QualityLevel } from '../../../types'
 
 const QUALITY_OPTIONS: ReadonlyArray<{ label: string; value: QualityLevel }> = [
-  { label: '4K — 2160p', value: 'hd2160'  },
-  { label: '1440p',      value: 'hd1440'  },
-  { label: '1080p',      value: 'hd1080'  },
-  { label: '720p',       value: 'hd720'   },
+  { label: '4K — hd2160',   value: 'hd2160' },
+  { label: '1440p — hd1440', value: 'hd1440' },
+  { label: '1080p — hd1080', value: 'hd1080' },
+  { label: '720p — hd720',   value: 'hd720'  },
 ]
 
 interface Props {
   value: QualityLevel | null
   onChange: (quality: QualityLevel) => void
+  disabled?: boolean
 }
 
-export function QualitySelect({ value, onChange }: Props) {
+export function QualitySelect({ value, onChange, disabled = false }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     onChange(e.target.value as QualityLevel)
   }
@@ -30,15 +31,12 @@ export function QualitySelect({ value, onChange }: Props) {
         fontFamily: 'Inter, sans-serif',
         fontSize: '12px',
         padding: '6px 8px',
-        cursor: 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.35 : 1,
         outline: 'none',
       }}
     >
-      {value === null && (
-        <option value="" disabled>
-          Pick a quality…
-        </option>
-      )}
+      <option value="" disabled>Pick a quality</option>
       {QUALITY_OPTIONS.map(opt => (
         <option key={opt.value} value={opt.value}>
           {opt.label}
